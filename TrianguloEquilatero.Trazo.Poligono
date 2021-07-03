@@ -1,0 +1,276 @@
+  #include <stdio.h>
+  #include <conio.h>
+  #include <graphics.h>
+  #include <math.h>
+  #include <dos.h>
+
+int Bressenharr();
+int DDA();
+int main(){
+	float l;
+	printf ("INGRESA EL NUMERO DEL ALGORITMO QUE REQUIERAS 1 PARA BRESSENHAR Y 2 PARA DDA: ");
+	scanf("%f",&l);
+	
+	if(l==1){
+		Bressenharr();
+	}else{
+		DDA();
+	}
+	return 0;
+}
+
+
+int Bressenharr() {
+      
+        int gdriver = DETECT, gmode;
+        float y1, x1 ,y2, x2,y3,x3,y4,x4,y5,x5,y6,x6,yy,xx,an,al1,al;
+        float err,y,x,dy,dx,dp,p,xEnd;
+        float  twodxdy,twody;
+		
+  		printf ("INGRESA ALTURA DEL TRIANGULO EQUILATERO: ");
+		scanf("%f",&al);
+		
+		printf ("INGRESE COORDENADAS DEL INCIO DE LA BASE: ");
+		scanf("%f%f",&y1,&x1);
+		
+	 	printf ("INGRESE COORDENADAS DEL FIN DE LA BASE: ");
+		scanf("%f%f",&y2,&x2);
+        
+        
+        initgraph(&gdriver, &gmode, "C:/TURBOC3/BGI");
+        err = graphresult();
+
+        if (err != grOk) {
+               
+                printf("Graphics Error: %s\n",
+                                grapherrormsg(err));
+                return 0;
+        }
+
+        dy = y2 - y1;
+        dx = x2 - x1;
+
+        twody = 2 * dy;
+        
+        twodxdy = 2 * (dy - dx);
+
+        dp = twody - dx;
+ 			
+ 			y = y1;
+ 			 	x = x1;
+                
+                 yy = y1;
+                xx = x1;
+    
+        x3 = y2, y3 = x2;
+        x4 = x2, y4 = x2;
+        x5 = an ,y5 = al+x1;
+        al1=al+x1;
+        x6=al1, y6= al1;
+        an=x2/2;
+       
+        putpixel(x, y, WHITE);
+
+       	printf("\n");
+        printf("LADO 1" );
+        printf("\n");
+        
+        while (x < x2) {
+        		 putpixel(x, y, WHITE);
+                x = x + 1;
+                printf("X: %f ", x);
+                if (p < 0) {
+                        p = p + 2*dy;
+                } else {
+                        p = p + (2*dy) - (2*dx);
+                        y = y + 1;
+                         printf("Y: %f", y);	
+                        printf("\n");
+                }
+        }
+         if (x>=x2&&y>=y2){
+                 	printf("\n");
+        			printf("LADO 2" );
+        			printf("\n");
+        while (y2 < al1) {
+        		 putpixel(x2, y2, WHITE);
+        		 if (x2>an){
+                x2 = x2 - 1;
+                printf("x2: %f", x2);	
+                        printf("\n");
+            }else{
+            	x2=an;
+            	printf("x2: %f", x2);	
+                        printf("\n");
+			}
+               
+                y2 = y2 + 1;
+                printf("y2: %f ", y2);
+                if (p < 0) {
+                        p = p + 2*dy;
+                } else {
+                        p = p + (2*dy) - (2*dx);
+                        x2 = x2 + 1;
+                         printf("x2: %f", x2);	
+                        printf("\n");
+                }
+        }
+    }
+    
+    if (x5==an&&y5==y5){
+			printf("\n");
+        	printf("LADO 3" );
+        	printf("\n");
+   		while (y1 < al1) {
+        		 putpixel(x5, al1, WHITE);
+        		  if (al1>an){
+        		  	x5 = x5 - 1;
+                         printf("x5: %f", x5);	
+                        printf("\n");
+                        }else {
+                        	x5=al1;
+                        	printf("x5: %f", x5);	
+                        printf("\n");
+						}
+                al1 = al1 - 1;
+                printf("y5: %f ", al1);
+                
+                if (p < 0) {
+                        p = p + 2*dy;
+                } else {
+                        p = p + (2*dy) - (2*dx);
+                        x5 = x5 - 1;
+                         printf("x5: %f", x5);	
+                        printf("\n");
+                }
+        }
+    }	            	
+
+        getch();
+        getchar();
+		getchar();
+        closegraph();
+        
+	return 0;
+}
+  
+  
+int DDA(){
+	
+		int gdriver = DETECT,err,gmode;
+        float i,y1, x1 ,y2, x2,y3,x3,y4,x4,y5,x5,y6,x6,dy,steps,dx,an,al1,al;
+        float  y,x,yincr,xincr;
+		
+  		printf ("INGRESA ALTURA DEL TRIANGULO EQUILATERO: ");
+		scanf("%f",&al);
+		
+		printf ("INGRESE COORDENADAS DEL INCIO DE LA BASE: ");
+		scanf("%f%f",&y1,&x1);
+		
+	 	printf ("INGRESE COORDENADAS DEL FIN DE LA BASE: ");
+		scanf("%f%f",&y2,&x2);
+        
+        
+        initgraph(&gdriver, &gmode, "C:/TURBOC3/BGI");
+
+        err = graphresult();
+
+        if (err != grOk) {
+               
+                printf("Graphic Error: %s\n",
+                       
+					    grapherrormsg(err));
+                
+				getch();
+                
+				return 0;
+        }
+
+        dx = x2 - x1;
+        printf("dx: %f", dx);
+        printf("\n");
+        dy = y2 - y1;
+        printf("dy: %f", dy);
+        printf("\n");
+
+        x = x1, y = y1;
+        x3 = x2, y3 = y2;
+        an=x2/2;
+        x4 = an, y4 = al+x1;
+        x5 = an+1 ,y5 = al+x1;;
+        x6 = al+x1 ,y6 = al+x1;
+        al1=al+x1;
+
+        steps = abs(dx) > abs(dy) ? dx : dy;
+        	printf("steps: %f", steps);	
+        	printf("\n");
+
+        xincr = (1.0 * dx) / steps;
+        yincr = (1.0 * dy) / steps;
+        putpixel((int) x, (int) y, WHITE);
+        printf("X: %f ", x);
+        printf("Y: %f", y);
+        printf("\n");
+        printf("Yinc: %f", yincr);
+		printf("\n");
+        printf("Xinc: %f", xincr);
+        printf("\n");
+        
+        printf("LADO 1" );
+
+        for (i = 0; i < steps; i++) {
+        	printf("\n");
+            x = x + xincr;
+            printf("X: %f ", x);
+            y = y + yincr;
+            printf("Y: %f", y);
+            putpixel((int) x, (int) y, WHITE);
+    	}
+                 if (x>=x2&&y>=y2){
+                 	printf("\n");
+        			printf("LADO 2" );
+                 	for (i = 0; i < al; i++){
+                 		if (x3>an){
+                 		x3 = x3- xincr;
+                 		printf("\n");
+		            	printf("X3: %f ", x3);
+		            	}else{
+                 			x3=an;
+                 			printf("\n");
+		            		printf("X3: %f ", x3);
+						}	
+		            	y3 = y3 + xincr;
+		            	printf("Y3: %f", y3);
+		            	putpixel((int) x3, (int) y3, WHITE);
+		        	}
+		        }
+					if (x4==an&&y4==y4){
+						printf("\n");
+        				printf("LADO 3" );
+        				printf("\n");
+					            	printf("X5: %f ", x5);
+					            		printf("\n");
+					            		printf("Y5: %f", y5);	
+					            		printf("\n");
+						for (i = 0; i < al; i++){ 
+						if (x5>x1){
+							x5 = x5 - xincr;
+			                 		printf("\n");
+					            	printf("X5: %f ", x5);
+						}else{
+							x5=x1;	
+							printf("\n");
+						    printf("X5: %f ", x5);
+						}
+					            	y5 = y5 - xincr;
+					            	printf("Y5: %f", y5);	
+					            	putpixel((int) x5, (int) y5, WHITE);
+					}
+					}
+                 
+        getchar();
+		getchar();
+        closegraph();
+        
+        return 0;
+  }
